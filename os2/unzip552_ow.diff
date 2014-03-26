@@ -1,0 +1,60 @@
+Only in UNZIP552: iunzip32.bak
+Only in UNZIP552/os2: backups
+Only in UNZIP552/os2: makefile.wat
+Only in UNZIP552/os2: netapi32.lib
+diff -r -w -B -u3 UNZIP552org/os2/os2.c UNZIP552/os2/os2.c
+--- UNZIP552org/os2/os2.c	2005-01-26 21:27:08.000000000 -0500
++++ UNZIP552/os2/os2.c	2007-03-02 07:51:52.000000000 -0500
+@@ -2164,7 +2164,13 @@
+       (sprintf(buf, "Visual Age C++ %d.%02d", __IBMC__/100,__IBMC__%100), buf),
+ #  endif
+ #elif defined(__WATCOMC__)
+-      "Watcom C", (sprintf(buf, " (__WATCOMC__ = %d)", __WATCOMC__), buf),
++#  if (__WATCOMC__ >= 1200)
++      "Open Watcom C", (sprintf(buf, " %d.%d", OWMAJOR, OWMINOR), buf),
++#  elif (__WATCOMC__ % 10 > 0)
++      "Watcom C", (sprintf(buf, " %d.%02d", OWMAJOR, OWMINOR), buf),
++#  else
++      "Open Watcom C", (sprintf(buf, " %d.%d", OWMAJOR, OWMINOR), buf),
++#  endif
+ #elif defined(__TURBOC__)
+ #  ifdef __BORLANDC__
+       "Borland C++",
+@@ -2198,8 +2204,11 @@
+       "unknown compiler", "",
+ #endif /* ?compilers */
+ 
++#ifndef __ECS__
+       "OS/2",
+-
++#else
++      "eComstation",
++#endif
+ /* GRR:  does IBM C/2 identify itself as IBM rather than Microsoft? */
+ #if (defined(MSC) || (defined(__WATCOMC__) && !defined(__386__)))
+ #  if defined(M_I86HM) || defined(__HUGE__)
+Only in UNZIP552/os2: os2acl32.c
+diff -r -w -B -u3 UNZIP552org/os2/os2cfg.h UNZIP552/os2/os2cfg.h
+--- UNZIP552org/os2/os2cfg.h	2001-05-06 16:25:30.000000000 -0400
++++ UNZIP552/os2/os2cfg.h	2007-03-02 07:41:42.000000000 -0500
+@@ -31,6 +31,17 @@
+ #endif /* __IBMC__ */
+ 
+ #ifdef __WATCOMC__
++#  if (__WATCOMC__ >= 1200)
++#    define OWMAJOR  (__WATCOMC__/100) - 11
++#    define OWMINOR  (__WATCOMC__ % 100) / 10
++#  elif (__WATCOMC__ % 10 > 0)
++#    define OWMAJOR  __WATCOMC__ / 100
++#    define OWMINOR  __WATCOMC__ % 100
++#  else
++#    define OWMAJOR  __WATCOMC__ / 100
++#    define OWMINOR  (__WATCOMC__ % 100) / 10
++#  endif
++
+ #  ifdef __386__
+ #    ifndef WATCOMC_386
+ #      define WATCOMC_386
+Only in UNZIP552/os2: readme.wat
+Only in UNZIP552/os2: rexxapi.lnk
+Only in UNZIP552: unzip552.zip

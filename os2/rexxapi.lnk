@@ -1,0 +1,18 @@
+SYSTEM os2v2_dll initinstance terminstance
+OPTION manyautodata
+OPTION DESCRIPTION 'Info-ZIP UnZip API - Copyright Scott Maxwell 1994, Info-ZIP 1995-1997'
+OPTION STACK      = 0x50000
+
+EXPORT  UzpVersion         .1
+EXPORT  UzpUnzipToMemory   .2
+EXPORT  UzpFileTree        .3
+EXPORT  UzpMain            .4
+EXPORT  UzpAltMain         .5
+EXPORT  UzpVersion2        .6
+EXPORT  UZDROPFUNCS        .2000  = UZDropFuncs
+EXPORT  UZLOADFUNCS        .2001  = UZLoadFuncs
+EXPORT  UZFILETREE         .2002  = UZFileTree
+EXPORT  UZUNZIPTOVAR       .2003  = UZUnZipToVar
+EXPORT  UZUNZIPTOSTEM      .2004  = UZUnZipToStem
+EXPORT  UZVER              .2005  = UZVer
+EXPORT  UZUNZIP            .2007  = UZUnZip
